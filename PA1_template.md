@@ -1,4 +1,9 @@
-# Data Science with R: Reproduceable Research
+---
+title: 'Data Science with R: Reproduceable Research'
+output: 
+  html_document:
+    keep_md: true
+---
 
 
 ### Peer-graded Assignment: Course Project 1
@@ -48,13 +53,14 @@ a. Total number of steps taken each day
 by_date <- group_by(activitySansNA, date)
 stepsPerDay <- summarize(by_date, total = sum(steps), average = mean(steps), med = median(steps))
 ```
+
 b. Plot for the total number of steps per day
 
 ```r
 ggplot(stepsPerDay, aes(date)) + geom_bar(aes(weight  = total), fill = "darkblue") + scale_x_date(date_breaks = "2 day", date_labels = "%m/%d")  + labs(title  ="Total steps per day",  x = "date", y = "total steps") + theme(plot.title = element_text(size = 14, color = "darkgreen", face = "bold", hjust = 0.5), axis.title  = element_text(size = 12, face = "italic"), axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) + scale_y_continuous(breaks = seq(min(stepsPerDay$total)-1,max(stepsPerDay$total), 1000 ))
 ```
 
-![](PA1_template_files/figure-html/steps_per_day-1.png)<!-- -->
+![plot of chunk steps_per_day](figure/steps_per_day-1.png)
 
 c.  Average and median of number of steps taken each day
 
@@ -62,7 +68,7 @@ c.  Average and median of number of steps taken each day
 ggplot(stepsPerDay, aes(x = date))  +  geom_line(aes(y = average, color = "average")) +  geom_line(aes(y = med, color = "median")) + scale_colour_manual("", breaks = c("average", "median"), values = c("maroon4", "orangered1")) + scale_x_date(date_breaks = "2 day", date_labels = "%m/%d")  + labs(title  ="Average and median steps per day",  x = "date", y = "steps") + theme(plot.title = element_text(size = 14, color = "darkgreen", face = "bold", hjust = 0.5), axis.title  = element_text(size = 12, face = "italic"), axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) + scale_y_continuous(breaks = round(seq(min(stepsPerDay$average),max(stepsPerDay$average), 5)))
 ```
 
-![](PA1_template_files/figure-html/average_median_steps_per_day-1.png)<!-- -->
+![plot of chunk average_median_steps_per_day](figure/average_median_steps_per_day-1.png)
 
 #### 3. Average daily activity pattern
 a. Time series plot of the average number of steps taken
@@ -73,7 +79,7 @@ stepsPerInterval <- summarize(by_interval, avg = mean(steps))
 ggplot(data = stepsPerInterval, aes(interval,avg)) + geom_line(color = "darkblue") + scale_x_continuous(breaks = seq(min(stepsPerInterval$interval), max(stepsPerInterval$interval), 50)) + labs(title  ="Average  steps per interval",  x = "interval", y = "steps") + theme(plot.title = element_text(size = 14, color = "darkgreen", face = "bold", hjust = 0.5), axis.title  = element_text(size = 12, face = "italic"), axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) + scale_y_continuous(breaks = round(seq(min(stepsPerInterval$avg),max(stepsPerInterval$avg), 10)))
 ```
 
-![](PA1_template_files/figure-html/timeSeries_avgsteps-1.png)<!-- -->
+![plot of chunk timeSeries_avgsteps](figure/timeSeries_avgsteps-1.png)
 
 b. The 5-minute interval that, on average, contains the maximum number of steps
 
@@ -115,7 +121,7 @@ stepsPerDay <- summarize(by_date, total = sum(steps), average = mean(steps), med
 ggplot(stepsPerDay, aes(date)) + geom_bar(aes(weight  = total), fill = "darkblue") + scale_x_date(date_breaks = "2 day", date_labels = "%m/%d")  + labs(title  ="Total steps per day",  x = "date", y = "total steps") + theme(plot.title = element_text(size = 14, color = "darkgreen", face = "bold", hjust = 0.5), axis.title  = element_text(size = 12, face = "italic"), axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) + scale_y_continuous(breaks = seq(min(stepsPerDay$total)-1,max(stepsPerDay$total), 1000 ))
 ```
 
-![](PA1_template_files/figure-html/steps_per_day_imputed_data-1.png)<!-- -->
+![plot of chunk steps_per_day_imputed_data](figure/steps_per_day_imputed_data-1.png)
 
 d. Average and median of number of steps taken each day
 
@@ -123,7 +129,7 @@ d. Average and median of number of steps taken each day
 ggplot(stepsPerDay, aes(x = date))  +  geom_line(aes(y = average, color = "average")) +  geom_line(aes(y = med, color = "median")) + scale_colour_manual("", breaks = c("average", "median"), values = c("maroon4", "orangered1")) + scale_x_date(date_breaks = "2 day", date_labels = "%m/%d")  + labs(title  ="Average and median steps per day",  x = "date", y = "steps") + theme(plot.title = element_text(size = 14, color = "darkgreen", face = "bold", hjust = 0.5), axis.title  = element_text(size = 12, face = "italic"), axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) + scale_y_continuous(breaks = round(seq(min(stepsPerDay$average),max(stepsPerDay$average), 5)))
 ```
 
-![](PA1_template_files/figure-html/avg_median_steps_per_day_imputed_data-1.png)<!-- -->
+![plot of chunk avg_median_steps_per_day_imputed_data](figure/avg_median_steps_per_day_imputed_data-1.png)
 
 #### 5. Differences in activity patterns between weekdays and weekends
 
@@ -145,4 +151,4 @@ c. Panel plot to compare weekdays and weekends acivity patterns
 ggplot(data = stepsPerInterval) + geom_line(aes(interval, steps, color = days)) + facet_grid(days~., scale = "free")  + scale_x_continuous(breaks = seq(min(stepsPerInterval$interval), max(stepsPerInterval$interval), 100)) + labs(title  ="steps per interval",  x = "interval", y = "steps") + theme(plot.title = element_text(size = 14, color = "darkgreen", face = "bold", hjust = 0.5), axis.title  = element_text(size = 12, face = "italic"), axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) + scale_y_continuous(breaks = round(seq(min(stepsPerInterval$steps),max(stepsPerInterval$steps), 1000)))
 ```
 
-![](PA1_template_files/figure-html/comparison_daytypes-1.png)<!-- -->
+![plot of chunk comparison_daytypes](figure/comparison_daytypes-1.png)

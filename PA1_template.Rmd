@@ -49,6 +49,7 @@ a. Total number of steps taken each day
 by_date <- group_by(activitySansNA, date)
 stepsPerDay <- summarize(by_date, total = sum(steps), average = mean(steps), med = median(steps))
 ```
+
 b. Plot for the total number of steps per day
 ```{r steps_per_day}
 ggplot(stepsPerDay, aes(date)) + geom_bar(aes(weight  = total), fill = "darkblue") + scale_x_date(date_breaks = "2 day", date_labels = "%m/%d")  + labs(title  ="Total steps per day",  x = "date", y = "total steps") + theme(plot.title = element_text(size = 14, color = "darkgreen", face = "bold", hjust = 0.5), axis.title  = element_text(size = 12, face = "italic"), axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) + scale_y_continuous(breaks = seq(min(stepsPerDay$total)-1,max(stepsPerDay$total), 1000 ))
